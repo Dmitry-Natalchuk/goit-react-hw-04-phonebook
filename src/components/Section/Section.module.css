@@ -1,0 +1,17 @@
+.section {
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    padding: 40px;
+    background-color: rgb(41, 41, 53);
+  }
+
+  .title {
+    max-width: 500px;
+    color : rgb(243, 247, 4);
+    transition: transform 250ms;
+  } 
+  .title:hover {
+    transform: scale(1.1);
+  }
