@@ -22,11 +22,9 @@ export const ContactForm = ({onSubmit}) => {
       }
     };
 
- const handleSubmit = e => {
-    e.preventDefault();
-    const nameLowerCase = name.toLowerCase()
-    const contact = {nameLowerCase,number}
-    onSubmit(contact)
+ const handleSubmit = event => {
+    event.preventDefault();
+    onSubmit(name,number)
     setName("");
     setNumber("");
   };

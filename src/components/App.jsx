@@ -9,20 +9,19 @@ const KEY = "contactList"
 export const App = () => {
   const [filter,setFilter] = useState("")
   const [contacts,setContacts] = useState(
-      JSON.parse(localStorage.getItem(KEY)) ?? []
+    JSON.parse(localStorage.getItem(KEY)) ?? []
 );
 
-  useEffect(() => {
-    localStorage.setItem(KEY,JSON.stringify(contacts))
-  },[contacts])
+useEffect(() => {
+  localStorage.setItem(KEY,JSON.stringify(contacts))
+},[contacts])
 
-  const addContact = ({name, number}) => {
+  const addContact = (name, number) => {
     const newContact = {
       id: nanoid(),
       name,
       number,
     };
-
     const findContact = contacts.find(contact =>
       contact.name.toLowerCase().includes(name.toLowerCase())
     );
@@ -33,6 +32,7 @@ export const App = () => {
   };
 
 
+
 const deleteContactItem = id => {
   setContacts(prevContacts => prevContacts.filter(contact => contact.id !== id))
 };
@@ -40,24 +40,27 @@ const deleteContactItem = id => {
 const changeContact = event => {
   setFilter(event.target.value)
 }
-const normalFilter = filter.toLowerCase();
-const visibleContacts = contacts.filter(contact =>
-  contact.name.toLowerCase().includes(normalFilter)
-);
 
+const visibleUser = contacts.filter(contact =>
+  contact.name.toLowerCase().includes(filter.toLowerCase())
+);
   return (
     <>
-    <Section title="Phonebook">
+  <Section title="Phonebook">
     <ContactForm onSubmit={addContact} />
-    <Filter value={filter} 
-      changeContact={changeContact} 
-      /> 
-       </Section>
-       <Section title = "Contacts">
-       <ContactList contacts = {visibleContacts} 
-         onDeleteContact = {deleteContactItem}
-         /> 
-       </Section>
+      {contacts.length === 0 ? (null) :
+        <Filter value={filter} 
+        changeContact={changeContact} 
+    />}
+  </Section>
+      {contacts.length === 0 ? (null) :
+      <Section title = "Contacts">
+        <ContactList contacts = {visibleUser} 
+        onDeleteContact = {deleteContactItem}
+        /> 
+      </Section>
+      }
+      
     </>
   )
 };
